@@ -1,174 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devendra | Portfolio</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f9;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devendra Bhandari Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* --- Global Styles --- */
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+body {background:#0f0f0f;color:#fff;scroll-behavior:smooth;}
+a {color:inherit;text-decoration:none;}
+section {padding:80px 10%;}
+h1,h2,h3{margin-bottom:20px;}
+button{cursor:pointer;transition:0.3s;}
 
-    /* Circle with profile photo */
-    .circle {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      position: fixed;
-      top: 50%;
-      left: -110px; /* half outside screen */
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      z-index: 1;
-    }
+/* --- Sticky Nav --- */
+nav{
+    position:sticky; top:0; background:#111; display:flex; justify-content:space-between; padding:10px 10%; z-index:1000;
+}
+nav a{margin:0 15px; color:#fff;}
+nav a:hover{color:#00ff99;}
 
-    .circle img {
-      width: 90%;
-      height: 90%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid white;
-    }
+/* --- Hero Section --- */
+header{
+    height:100vh; display:flex; align-items:center; justify-content:flex-start;
+    position:relative; background:#0f0f0f; overflow:hidden; padding-left:10%;
+}
+.hero-circle{
+    width:150px; height:150px; border-radius:50%; background:#00ff99; margin-right:30px;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+.hero-content h1{font-size:3em; margin-bottom:10px;}
+.hero-content p{font-size:1.2em; margin-bottom:20px;}
+.hero-content .btn{
+    padding:10px 20px; background:#00ff99; color:#0f0f0f; border:none; border-radius:5px; margin-right:10px;
+}
+.hero-content .btn:hover{background:#00cc7a;}
 
-    /* Container for sections */
-    .container {
-      margin-left: 160px; /* space for circle */
-      padding: 40px;
-    }
+/* --- About Me --- */
+#about{display:flex;align-items:center;gap:50px;flex-wrap:wrap;}
+#about .about-text{flex:1 1 400px;}
+#about .about-img{flex:1 1 250px;width:250px;height:250px;border-radius:50%; background:#00ff99; animation:rotate 10s linear infinite;}
+@keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-    section {
-      margin-bottom: 60px;
-    }
+/* --- Skills --- */
+#skills{display:flex;flex-wrap:wrap;gap:30px;}
+.skill-card{
+    background:#1a1a1a;padding:20px;border-radius:10px;flex:1 1 200px;transition:0.3s;
+}
+.skill-card:hover{background:#00ff99;color:#0f0f0f;}
+.progress-bar{height:10px;background:#333;border-radius:5px;margin-top:5px;}
+.progress{height:100%;background:#00ff99;border-radius:5px;}
 
-    h1, h2 {
-      color: #333;
-    }
+/* --- Projects Carousel --- */
+#projects{background: linear-gradient(180deg, #0f0f0f, #1a1a1a);}
+#project-filters{margin-bottom:15px;}
+#project-filters button{
+    margin-right:10px;padding:5px 10px;background:#111;color:#fff;border:none;border-radius:5px;cursor:pointer;
+}
+#project-filters button:hover{background:#00ff99;color:#0f0f0f;}
+.projects-carousel{
+    display:flex;overflow-x:auto;gap:20px;padding:20px 0;scroll-behavior:smooth;
+}
+.projects-carousel::-webkit-scrollbar{height:8px;}
+.projects-carousel::-webkit-scrollbar-thumb{background:#00ff99;border-radius:5px;}
+.project-card{
+    min-width:300px;background:#1a1a1a;border-radius:10px;overflow:hidden;transition:0.3s;flex-shrink:0;cursor:pointer;
+}
+.project-card img{width:100%;height:150px;object-fit:cover;}
+.project-card .project-info{padding:15px;}
+.project-card:hover{transform:translateY(-5px);box-shadow:0 5px 15px #00ff99;}
+.project-card .badge{
+    display:inline-block;padding:3px 8px;background:#00ff99;color:#0f0f0f;border-radius:3px;margin-bottom:5px;font-size:0.8em;
+}
+.project-card a{
+    display:inline-block;margin-top:10px;padding:5px 10px;background:#00ff99;color:#0f0f0f;border-radius:5px;text-decoration:none;
+}
+.project-card a:hover{background:#00cc7a;}
 
-    p {
-      color: #555;
-      line-height: 1.6;
-    }
+/* --- Modal --- */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);align-items:center;justify-content:center;z-index:2000;}
+.modal-content{background:#111;padding:20px;border-radius:10px;max-width:800px;width:90%;position:relative;}
+.modal-content img{width:100%; margin-bottom:10px;}
+.close-btn{position:absolute;top:10px;right:10px;font-size:1.5em;cursor:pointer;color:#00ff99;}
 
-    .project {
-      margin-bottom: 20px;
-      padding: 10px;
-      background: #fff;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
+/* --- Timeline / Achievements --- */
+.timeline{position:relative;margin:50px 0;}
+.timeline::before{content:'';position:absolute;left:50%;width:4px;background:#00ff99;top:0;bottom:0;margin-left:-2px;}
+.timeline-item{padding:20px 40px;position:relative;width:50%;}
+.timeline-item:nth-child(odd){left:0;}
+.timeline-item:nth-child(even){left:50%;}
+.timeline-item::before{content:'';position:absolute;width:20px;height:20px;background:#00ff99;border-radius:50%;top:20px;right:-10px;}
+.timeline-item:nth-child(even)::before{left:-10px;}
 
-    .project h3 {
-      margin: 0;
-      color: #222;
-    }
+/* --- Contact --- */
+#contact{display:flex;flex-wrap:wrap;gap:50px;}
+#contact form{flex:1 1 300px;display:flex;flex-direction:column;gap:15px;}
+#contact form input,#contact form textarea{padding:10px;border-radius:5px;border:none;}
+#contact form button{padding:10px;background:#00ff99;color:#0f0f0f;border:none;border-radius:5px;cursor:pointer;}
+#contact form button:hover{background:#00cc7a;}
+#contact-info{flex:1 1 200px;}
 
-    .project-tech {
-      font-style: italic;
-      font-size: 0.9em;
-      color: #666;
-    }
+/* --- Footer --- */
+footer{text-align:center;padding:20px;background:#111;}
 
-    .project a {
-      text-decoration: none;
-      color: #2575fc;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #222;
-      color: #fff;
-      margin-top: 40px;
-    }
-  </style>
+/* --- Responsive --- */
+@media(max-width:768px){
+    #about{flex-direction:column;align-items:center;}
+    header{justify-content:center;flex-direction:column;text-align:center;}
+    .hero-content h1{font-size:2.2em;}
+    .timeline::before{left:10px;}
+    .timeline-item{width:100%; left:0; padding-left:30px; padding-right:10px;}
+    .timeline-item:nth-child(even){left:0;}
+    .timeline-item::before{left:0;}
+}
+</style>
 </head>
 <body>
-  <!-- Circle with profile photo -->
-  <div class="circle">
-    <img src="https://via.placeholder.com/200" alt="My Photo">
-  </div>
 
-  <!-- Main Portfolio -->
-  <div class="container">
-    <section id="about">
-      <h1>About myself, I'm Devendra Bhandari</h1>
-      <p>Doing BTech in Data Science & AI | In making of D1 TOOL & Electronic Sim: D1 | Exploring Python, C, Reader books on web application and web haking</p>
-    </section>
+<!-- Navigation -->
+<nav>
+    <div>Devendra</div>
+    <div>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
 
-    <section id="projects">
-      <h2>Projects</h2>
+<!-- Hero Section -->
+<header>
+    <div class="hero-circle"></div>
+    <div class="hero-content">
+        <h1>Hi, I’m Devendra Bhandari </h1>
+        <p>BTech | Data Science & AI | Tech Enthusiast</p>
+        <button class="btn" onclick="document.getElementById('projects').scrollIntoView()">View Projects</button>
+        <button class="btn" onclick="document.getElementById('contact').scrollIntoView()">Contact Me</button>
+    </div>
+</header>
 
-      <div class="project">
-        <h3>D1 TOOL</h3>
-        <p>A portable hacking and automation device inspired by Flipper Zero, built with Raspberry Pi Zero W and modular add-ons.</p>
-        <p class="project-tech">Tech: Raspberry Pi, Python, Hardware</p>
-        <p><a href="https://github.com/Devendra-3921/D1-TOOL" target="_blank">🔗 View Project</a></p>
-        <p>Will update soon</p>
- </div>
+<!-- About Me -->
+<section id="about">
+    <div class="about-text">
+        <h2>About Me</h2>
+        <p>I build tools, simulations, and web apps. Currently pursuing BTech in Data Science & AI, I enjoy Python, C programming, Raspberry Pi projects, and exploring AI technologies.</p>
+        <p>My projects showcase my hands-on experience in electronics, software, and web development.</p>
+    </div>
+    <div class="about-img"></div>
+</section>
 
-      <div class="project">
-        <h3>Electronic Sim: D1</h3>
-        <p>A realistic breadboard simulator built in Pygame with Ohm’s Law simulation, LED states, wire connections, multimeter, and save/load feature.</p>
-        <p class="project-tech">Tech: Python, Pygame</p>
-        <p><a href="https://github.com/Devendra-3921/Electronic-Sim-D1" target="_blank">🔗 View Project</a></p>
-       <p>Will update soon</p>      
+<!-- Skills -->
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="skill-card">
+        <h3>Python</h3>
+        <div class="progress-bar"><div class="progress" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card">
+        <h3>C Programming</h3>
+        <div class="progress-bar"><div class="progress" style="width:70%"></div></div>
+    </div>
+    <div class="skill-card">
+        <h3>Web Development</h3>
+        <div class="progress-bar"><div class="progress" style="width:65%"></div></div>
+    </div>
+    <div class="skill-card">
+        <h3>Electronics/Simulations</h3>
+        <div class="progress-bar"><div class="progress" style="width:75%"></div></div>
+    </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+    <h2>Projects</h2>
+    <!-- Filters -->
+    <div id="project-filters">
+        <button onclick="filterProjects('all')">All</button>
+        <button onclick="filterProjects('python')">Python</button>
+        <button onclick="filterProjects('web')">Web</button>
+        <button onclick="filterProjects('electronics')">Electronics</button>
+    </div>
+
+    <!-- Carousel -->
+    <div class="projects-carousel">
+        <div class="project-card" data-category="electronics" onclick="openModal('D1 TOOL','/path-to-your-gif1.gif','https://github.com/Devendra-3921/D1-TOOL')">
+            <img src="https://via.placeholder.com/400x150.png?text=D1+TOOL" alt="D1 TOOL">
+            <div class="project-info">
+                <h3>D1 TOOL</h3>
+                <span class="badge">Electronics</span>
+                <p>Portable hacking & automation device.</p>
+                <a href="https://github.com/Devendra-3921/D1-TOOL" target="_blank">GitHub</a>
+            </div>
+        </div>
+
+        <div class="project-card" data-category="electronics" onclick="openModal('Electronic Sim D1','/path-to-your-gif2.gif','https://github.com/Devendra-3921/Electronic-Sim-D1')">
+            <img src="https://via.placeholder.com/400x150.png?text=Electronic+Sim+D1" alt="Electronic Sim D1">
+            <div class="project-info">
+                <h3>Electronic Sim: D1</h3>
+                <span class="badge">Electronics</span>
+                <p>Realistic breadboard simulator in Pygame.</p>
+                <a href="https://github.com/Devendra-3921/Electronic-Sim-D1" target="_blank">GitHub</a>
+            </div>
+        </div>
+
+        <!-- Add 3 more sample projects -->
+        <div class="project-card" data-category="python" onclick="openModal('Python Tool','/path-to-your-gif3.gif','https://github.com/Devendra-3921/Python-Tool')">
+            <img src="https://via.placeholder.com/400x150.png?text=Python+Tool" alt="Python Tool">
+            <div class="project-info">
+                <h3>Python Tool</h3>
+                <span class="badge">Python</span>
+                <p>Automation and data analysis scripts.</p>
+                <a href="https://github.com/Devendra-3921/Python-Tool" target="_blank">GitHub</a>
+            </div>
+        </div>
+
+        <div class="project-card" data-category="web" onclick="openModal('Color Mixer','/path-to-your-gif4.gif','https://github.com/Devendra-3921/Colour-mixer')">
+            <img src="https://via.placeholder.com/400x150.png?text=Portfolio+Website" alt="Color Mixer">
+            <div class="project-info">
+                <h3>Color Mixer</h3>
+                <span class="badge">Web</span>
+                <p>A interactive Color Mixer.</p>
+                <a href="https://devendra-3921.github.io/Colour-mixer/" target="_blank">GitHub</a>
+            </div>
+        </div>
+
+        <div class="project-card" data-category="web" onclick="openModal('Student portal','/path-to-your-gif5.gif','https://github.com/Devendra-3921/Student-collage-portal')">
+            <img src="https://via.placeholder.com/400x150.png?text=Web+App" alt="Student-collage-portal">
+            <div class="project-info">
+                <h3>Student feadback portal</h3>
+                <span class="badge">Web</span>
+                <p>Interactive front-end web application.</p>
+                <a href="https://devendra-3921.github.io/Student-collage-portal/" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </div>`
+</section>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title"></h2>
+        <img id="modal-img" src="" alt="Project Preview">
+        <a id="modal-github" href="#" target="_blank" style="display:inline-block;margin-top:10px;padding:5px 10px;background:#00ff99;color:#0f0f0f;border-radius:5px;text-decoration:none;">GitHub</a>
+    </div>
 </div>
 
-      <div class="project">
-        <h3>Student College Portal</h3>
-        <p>A web-based student portal with login, student registration, admin dashboard, and user management features.</p>
-        <p class="project-tech">Tech: HTML, CSS, JavaScript</p>
-        <p><a href="https://devendra-3921.github.io/Student-collage-portal/" target="_blank">🔗 View Project</a></p>
-      </div>
+<!-- Timeline -->
+<section id="timeline">
+    <h2>Timeline / Achievements</h2>
+    <div class="timeline">
+        <div class="timeline-item"><h3>2025</h3><p>BTech in Data Science & AI started.</p></div>
+        <div class="timeline-item"><h3>2025</h3><p>Completed D1 TOOL project.</p></div>
+        <div class="timeline-item"><h3>2025</h3><p>Built Electronic Sim: D1.</p></div>
+    </div>
+</section>
 
-      <div class="project">
-        <h3>Colour Mixer</h3>
-        <p>A web-based color mixer to check the different shades of various colour.</p>
-        <p class="project-tech">Tech: HTML, CSS, JavaScript</p>
-        <p><a href="https://devendra-3921.github.io/Colour-mixer//" target="_blank">🔗 View Project</a></p>
-      </div>
+<!-- Contact -->
+<section id="contact">
+    <div>
+        <h2>Contact Me</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+    <div id="contact-info">
+        <h3>Get in Touch</h3>
+        <p>Email: <a href="mailto:devaanandbhandari@gmail.com">devaanandbhandari@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/Devendra-3921" target="_blank">github.com/Devendra-3921</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/Devendra-Bhandari" target="_blank">linkedin.com/in/Devendra-Bhandari</a></p>
+    </div>
+</section>
 
+<!-- Footer -->
+<footer>© 2025 Devendra Bhandari | All Rights Reserved</footer>
 
-      <div class="project">
-         <h3>VRMMO</h3>
-        <p>A Virtual Reality Massively Multiplayer Online (VRMMO) game concept showcasing immersive 3D worlds where players can explore, complete quests, interact with other players, and experience realistic environments. The project demonstrates core gameplay mechanics, interactive elements, and a foundational VR interface.</p>
-       <p class="project-tech">Tech:c#,,rust,python WebVR</p>
-       <p>Will be common in next 40 to 50 years</p>     
-      </div>
+<script>
+// Modal JS
+function openModal(title,img,github){
+    document.getElementById('modal-title').innerText=title;
+    document.getElementById('modal-img').src=img;
+    document.getElementById('modal-github').href=github;
+    document.getElementById('modal').style.display='flex';
+}
+function closeModal(){
+    document.getElementById('modal').style.display='none';
+}
 
-   </section>
+// Filter Projects
+function filterProjects(category){
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(card=>{
+        if(category==='all' || card.dataset.category===category){
+            card.style.display='block';
+        }else{
+            card.style.display='none';
+        }
+    });
+}
+</script>
 
-    <section id="skills">
-      <h2>Skills</h2>
-      <p>Python • C • HTML  • GitHub • Raspberry Pi • Using shortest methods in problem solving • knowledge of using Ai effectively</p>
-    </section>
-
-    <section id="education">
-      <h2>Education</h2>
-      <p>BTech in Data Science & AI (2025–2029, planned)</p> 
-      <p> C & C++ Certification ongoing as of 09/2025 </p>
-      <p>FreeCodeCamp HTML & CSS</p>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:devaanandbhandari@gmail.com">devaanandbhandari@gmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/Devendra-3921" target="_blank">github.com/Devendra-3921</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/Devendra Bhandari" target="_blank">linkedin.com/in/Devendra Bhandar</a></p>
-    </section>
-  </div>
-
-  <footer>
-    <p>© 2025 Devendra | All Rights Reserved</p>
-  </footer>
 </body>
 </html>
-
